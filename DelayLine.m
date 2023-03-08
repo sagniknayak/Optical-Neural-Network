@@ -14,9 +14,15 @@ classdef DelayLine
             obj.d = d_in;
             obj.L = L_in;
             obj.lambda = wavelength;
+            obj.V1 = 0;
+            obj.V2 = 0;
         end
-        function E_out = compute(obj, E_in, V1, V2)
-            n_eff = obj.n - 0.5*obj.r*(obj.n.^3)*((V1-V2)/obj.d);
+        function set_voltage(obj,V1,V2)
+            obj.V1 = V1;
+            obj.V2 = V2;
+        end
+        function E_out = compute(obj, E_in)
+            n_eff = obj.n - 0.5*obj.r*(obj.n.^3)*((obj.V1-obj.V2)/obj.d);
             phi = 2*pi*(1/obj.lambda)*n_eff*obj.L;
             E_out = exp(1j*phi) * E_in;  
         end
