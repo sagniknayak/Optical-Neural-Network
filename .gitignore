@@ -1,1 +1,4 @@
-test.m
+*.py
+*test*.m
+__pycache__
+Untitled*.m
