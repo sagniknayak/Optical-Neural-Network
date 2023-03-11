@@ -22,5 +22,13 @@ classdef SU
         function obj = set_Vphi(obj, layer, position, V_phi, G_phi)
             obj.BU{layer}{position} = obj.BU{layer}{position}.set_Vphi(V_phi, G_phi);
         end
+        function E_out = compute(obj, E_in)
+            E_out = E_in;
+            for l = 1:obj.N-1
+                for i=1:obj.N - l
+                    E_out(i:i+1) = obj.BU{l}{i}.compute(E_out(i:i+1));
+                end
+            end
+        end
     end
 end
